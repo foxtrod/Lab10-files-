@@ -85,7 +85,7 @@ void Newf()
 
 void Spisok()
 {
-	if ((fl = fopen(name, "rb+")) == NULL)
+	if ((fl = fopen(name, "r+")) == NULL)
 	{
 		cout << "Error" << endl;
 		exit(1);
@@ -107,21 +107,19 @@ void Spisok()
 	fclose(fl);
 }
 
-void opf()      //open file
+void Opf()      //open file
 {
 	if ((fl - fopen(name, "rb")) == NULL)
 	{
 		cout << "Error" << endl;
 		exit(1);
 	}
-	kolvo = 0; Workmen std;
+	kolvo = 0;
+	Workmen std;
 	while(true)
 	{
 		int nwrt = fread(&std, sizeof(Workmen), 1, fl);
-		if (nwrt != 1) 
-		{
-			break;
-		}
+		if (nwrt != 1) break;
 		men[kolvo] = std;
 		cout << men[kolvo].fio << " " << men[kolvo].doljnost 
 			<< men[kolvo].data_nachala << " " << 
@@ -131,7 +129,18 @@ void opf()      //open file
 	fclose(fl);
 }
 
-void resf() //Out on screen
+void Resc()
+{
+	for (int i = 0; i < kolvo; i ++)
+	{
+		if (men[i].data_nachala < '1995')
+		{
+			cout << men[i].data_nachala << endl; 
+		}		
+	}
+}
+
+void Resf() //Out on screen
 {
 	char namet[30];
 	FILE *ft;
@@ -145,7 +154,7 @@ void resf() //Out on screen
 	char s[80];
 	for (int i = 0; i < kolvo; i ++)
 	{
-		if (men[i].data_nachala < '1995')
+		if (men[i].data_nachala > '1995')
 		{
 			strcpy(s, men[i].fio);
 			strcat(s, "\n");
